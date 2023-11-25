@@ -51,9 +51,21 @@
 
                     // 如果所有图片都加载完成，保存合并后的图片
                     if (loadedImages === images.length) {
-                        const mergedImage = canvas.toDataURL("image/png");
-                        // console.log("Merged Image Data URL:", mergedImage);
-                        // 如果需要，你可以将数据 URL 用于其他操作，比如显示在页面上或发送到服务器
+                         // 获取图片的像素数据
+                        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+                        const data = imageData.data;
+                        // 转换为黑白效果
+                        for (let i = 0; i < data.length; i += 4) {
+                          // 将 R、G、B 设置为0
+                          data[i] = 0;
+                          data[i + 1] = 0;
+                          data[i + 2] = 0;
+                        }
+                        // 将修改后的数据放回 canvas
+                        ctx.putImageData(imageData, 0, 0);
+                        // 导出为 base64 图片
+                        const mergedImageBase64 = canvas.toDataURL("image/png");
+                        // 如果需要，你可以将mergedImageBase64图片用于其他操作，比如发送到服务器
                     }
                 };
             });
