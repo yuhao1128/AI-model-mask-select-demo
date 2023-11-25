@@ -26,7 +26,7 @@
         document.getElementById('save').onclick = function () {
             const images = [];
             selectedIndexList.forEach(index => {
-                images.push(layers[index].canvas)
+                images.push(layers[index].imageData)
             })
             drawing(images)
         }
